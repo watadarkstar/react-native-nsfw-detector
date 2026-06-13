@@ -31,6 +31,7 @@
 - React Native 0.70+
 - iOS 13+
 - CoreML enabled environment
+- Because the model was trained with CreateML, you need Xcode 10 and above to compile the project
 - Physical iOS device strongly recommended for accurate inference (Simulator results are unreliable)
 
 ## Features
