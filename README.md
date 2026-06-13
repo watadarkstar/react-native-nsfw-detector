@@ -99,6 +99,8 @@ Work is based on the amazing work of
 [NSFWDetector](https://github.com/lovoo/NSFWDetector/tree/master) by the LOVOO
 org. See copyright notices in [LICENSE](LICENSE).
 
+Built with [create expo module](https://docs.expo.dev/modules/get-started/).
+
 ## Contributors
 
 Submit a PR to contribute :)
