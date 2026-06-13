@@ -22,7 +22,7 @@
 
 <p align="center">
   <a href="https://x.com/icookandcode" target="_blank">
-    Need help building your React Native app? Connect with Adrian on X 🚀
+    Need help building your React Native app? Connect with Adrian on X
   </a>
 </p>
 
