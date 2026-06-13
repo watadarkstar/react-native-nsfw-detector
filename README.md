@@ -58,7 +58,7 @@ Using yarn
 yarn add react-native-nsfw-detector
 ```
 
-## Example
+## Usage
 
 ```jsx
 import { check } from 'react-native-nsfw-detector';
@@ -70,9 +70,13 @@ import { check } from 'react-native-nsfw-detector';
  */
 
 async function checkImage(imageUri: string) {
-  const result = await check(imageUri);
+  const confidence = await check(imageUri);
 
-  console.log(result);
+  if confidence > 0.9 {
+    console.log("Not safe for work 🤦‍♂️🤦‍♀️")
+  } else {
+    console.log("Safe! ✅")
+  }
 }
 ```
 
