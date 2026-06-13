@@ -26,6 +26,13 @@
   </a>
 </p>
 
+## Requirements
+
+- React Native 0.70+
+- iOS 13+
+- CoreML enabled environment
+- Physical iOS device strongly recommended for accurate inference (Simulator results are unreliable)
+
 ## Features
 
 - On device inference using CoreML
