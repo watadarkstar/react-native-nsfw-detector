@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/react-native-nsfw-detector">
-    <img alt="npm version" src="https://badge.fury.io/js/react-native-nsfw-detector.svg"/>
+    <img alt="npm version" src="https://badge.fury.io/js/react-native-nsfw-detector.svg?icon=si%3Anpm"/>
   </a>
   <a title="License" href="https://github.com/your-repo/react-native-nsfw-detector/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
