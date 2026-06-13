@@ -1,4 +1,9 @@
 // Reexport the native module. On web, it will be resolved to ReactNativeNsfwDetectorModule.web.ts
 // and on native platforms to ReactNativeNsfwDetectorModule.ts
-export { default } from './ReactNativeNsfwDetectorModule';
+import ReactNativeNsfwDetectorModule from './ReactNativeNsfwDetectorModule';
+
+export function check(imageUri: string): Promise<number> {
+  return ReactNativeNsfwDetectorModule.check(imageUri);
+}
+
 export * from './ReactNativeNsfwDetector.types';

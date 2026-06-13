@@ -1,7 +1,7 @@
 import { NativeModule, requireNativeModule } from 'expo';
 
 declare class ReactNativeNsfwDetectorModule extends NativeModule<{}> {
-  setValueAsync(value: string): Promise<void>;
+  check(imageUri: string): Promise<number>;
 }
 
 export default requireNativeModule<ReactNativeNsfwDetectorModule>('ReactNativeNsfwDetector');

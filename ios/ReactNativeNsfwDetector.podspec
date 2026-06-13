@@ -14,10 +14,18 @@ Pod::Spec.new do |s|
 
   s.dependency 'ExpoModulesCore'
 
+  # s.prepare_command = <<-CMD
+  #   if [ ! -f NSFW.mlmodel ]; then
+  #     curl -sL "https://github.com/lovoo/NSFWDetector/raw/master/NSFWDetector/Classes/NSFW.mlmodel" -o "NSFW.mlmodel"
+  #   fi
+  # CMD
+
   # Swift/Objective-C compatibility
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
+    'COREML_CODEGEN_LANGUAGE' => 'Swift',
   }
 
-  s.source_files = "**/*.{h,m,mm,swift,hpp,cpp}"
+  s.source_files = "*.{h,m,mm,swift,hpp,cpp}"
+  s.resources = ["NSFW.mlmodelc"]
 end
