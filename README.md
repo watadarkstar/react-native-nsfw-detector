@@ -80,7 +80,7 @@ async function checkImage(imageUri: string) {
 }
 ```
 
-See the full working example app here:
+See the full working example Expo app here:
 
 - [/example](/example/) directory in this repo
 - Run it locally to test real CoreML inference on device
