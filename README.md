@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7d1df9b9-bafb-4e0e-a9cd-cecd499484a6" alt="example" height="150"/>
+  <img src="https://github.com/watadarkstar/react-native-nsfw-detector/blob/master/assets/header.png?raw=true" alt="example" height="150"/>
 </p>
 
 <h3 align="center">
