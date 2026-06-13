@@ -11,7 +11,9 @@
     "test": "node internal/module_scripts/test.js",
     "prepare": "node internal/module_scripts/prepare.js",
     "open:ios": "node internal/module_scripts/open-ios.js",
-    "open:android": "node internal/module_scripts/open-android.js"
+    "open:android": "node internal/module_scripts/open-android.js",
+    "release": "release-it",
+    "release:dry": "release-it --dry-run"
   },
   "keywords": [
     "react-native",
@@ -26,7 +28,6 @@
   "author": "Adrian Carolli <adrian.caarolli@gmail.com> (https://github.com/watadarkstar)",
   "license": "MIT",
   "homepage": "https://github.com/watadarkstar/react-native-nsfw-detector#readme",
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@types/jest": "^29.2.1",
@@ -39,6 +40,7 @@
     "jest-expo": "~56.0.4",
     "prettier": "^3.0.0",
     "react-native": "0.85.3",
+    "release-it": "^20.2.0",
     "typescript": "^5.9.2"
   },
   "jest": {
