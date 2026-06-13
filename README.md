@@ -7,7 +7,7 @@
 </h3>
 
 <p align="center">
-  A fast on device image safety detector for React Native / Expo using a CoreML model<br/>
+  A fast on device AI image safety detector for React Native / Expo using a CoreML model<br/>
   to detect nudity and unsafe visual content in images.
 </p>
 
@@ -102,4 +102,5 @@ _Built with ❤️ by [Adrian](https://x.com/icookandcode)_
 
 ---
 
-**Keywords:** react-native, react, chat, nsfw, conversation, typescript, react-native-nsfw-detector
+**Keywords:** react-native, react, CoreML, AI, nsfw, inference, typescript,
+react-native-nsfw-detector, swift
