@@ -63,7 +63,7 @@ async function checkImage(imageUri: string) {
 
 ## License
 
-- [MIT](LICENSE)
+[MIT](LICENSE)
 
 ## Author
 
