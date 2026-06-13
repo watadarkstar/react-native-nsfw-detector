@@ -8,7 +8,8 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "expo.modules.nsfwdetector.test"
+      "bundleIdentifier": "expo.modules.nsfwdetector.test",
+      "appleTeamId": "GG5RS5BN36"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,6 +24,8 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-image"]
+    "plugins": [
+      "expo-image"
+    ]
   }
 }

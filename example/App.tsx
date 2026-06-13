@@ -1,9 +1,10 @@
+import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
-  Alert,
   ActivityIndicator,
+  Alert,
   Button,
   SafeAreaView,
   ScrollView,
@@ -14,10 +15,39 @@ import {
 import { check } from 'react-native-nsfw-detector';
 
 export default function App() {
+  const [facing, setFacing] = useState<CameraType>('back');
   const [confidence, setConfidence] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<string | null>(null);
+  const [showCamera, setShowCamera] = useState(false);
+
+  const cameraRef = useRef<CameraView>(null);
+
+  const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+
+  const toggleCameraFacing = () => {
+    setFacing((current) => (current === 'back' ? 'front' : 'back'));
+  };
+
+  const analyzeImage = async (imageUri: string) => {
+    setLoading(true);
+    setError(null);
+    setConfidence(null);
+
+    try {
+      setImage(imageUri);
+
+      const res = await check(imageUri);
+      setConfidence(res);
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      setError(message);
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const pickImage = async () => {
     setLoading(true);
@@ -25,11 +55,6 @@ export default function App() {
     setConfidence(null);
 
     try {
-      // No permissions request is necessary for launching the image library.
-      // Manually request permissions for videos on iOS when `allowsEditing` is set to `false`
-      // and `videoExportPreset` is `'Passthrough'` (the default), ideally before launching the picker
-      // so the app users aren't surprised by a system dialog after picking a video.
-      // See "Invoke permissions for videos" sub section for more details.
       const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
       if (!permissionResult.granted) {
@@ -38,19 +63,13 @@ export default function App() {
       }
 
       const imageResult = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images', 'videos'],
+        mediaTypes: ['images'],
         allowsEditing: false,
-        aspect: [4, 3],
         quality: 1,
       });
 
       if (!imageResult.canceled) {
-        const imageUri = imageResult.assets[0].uri;
-        setImage(imageUri);
-        console.log('image', image);
-
-        const res = await check(imageUri);
-        setConfidence(res);
+        await analyzeImage(imageResult.assets[0].uri);
       }
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
@@ -61,17 +80,80 @@ export default function App() {
     }
   };
 
+  const openCamera = async () => {
+    if (!cameraPermission?.granted) {
+      const permission = await requestCameraPermission();
+
+      if (!permission.granted) {
+        Alert.alert('Permission required', 'Camera permission is required.');
+        return;
+      }
+    }
+
+    setShowCamera(true);
+  };
+
+  const takePhoto = async () => {
+    if (!cameraRef.current) {
+      return;
+    }
+
+    try {
+      const photo = await cameraRef.current.takePictureAsync({
+        quality: 1,
+      });
+
+      if (!photo?.uri) {
+        return;
+      }
+
+      setShowCamera(false);
+      await analyzeImage(photo.uri);
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      setError(message);
+      console.error(e);
+    }
+  };
+
+  if (showCamera) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.cameraContainer}>
+          <CameraView ref={cameraRef} style={styles.camera} facing={facing} />
+          <View style={styles.cameraControls}>
+            <Button
+              title={`Switch to ${facing === 'back' ? 'Front' : 'Back'} Camera`}
+              onPress={toggleCameraFacing}
+            />
+            <Button title="Take Photo" onPress={takePhoto} />
+            <Button title="Cancel" onPress={() => setShowCamera(false)} />
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
           <Text style={styles.header}>NSFW Module API Example</Text>
-          <Image source={image} style={styles.image} contentFit="cover" />
+
+          {image ? <Image source={image} style={styles.image} contentFit="cover" /> : null}
+
           <Button title="Choose Image" onPress={pickImage} disabled={loading} />
+
+          <View style={styles.buttonSpacing} />
+
+          <Button title="Take Photo" onPress={openCamera} disabled={loading} />
+
           {loading ? <ActivityIndicator style={styles.spinner} /> : null}
+
           {confidence != null ? (
             <Text style={styles.result}>NSFW: {(confidence * 100).toFixed(1)}%</Text>
           ) : null}
+
           {error != null ? <Text style={styles.error}>{error}</Text> : null}
         </ScrollView>
       </View>
@@ -80,11 +162,46 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  header: { fontSize: 30, margin: 20 },
-  container: { flex: 1, backgroundColor: '#eee' },
-  content: { paddingBottom: 40 },
-  image: { width: '100%', height: 280, marginHorizontal: 20, borderRadius: 10 },
-  spinner: { marginTop: 16 },
-  result: { margin: 20, fontSize: 16 },
-  error: { margin: 20, fontSize: 16, color: '#c00' },
+  header: {
+    fontSize: 30,
+    margin: 20,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#eee',
+  },
+  content: {
+    paddingBottom: 40,
+  },
+  image: {
+    width: '100%',
+    height: 280,
+    marginHorizontal: 20,
+    borderRadius: 10,
+  },
+  spinner: {
+    marginTop: 16,
+  },
+  result: {
+    margin: 20,
+    fontSize: 16,
+  },
+  error: {
+    margin: 20,
+    fontSize: 16,
+    color: '#c00',
+  },
+  buttonSpacing: {
+    height: 12,
+  },
+  cameraContainer: {
+    flex: 1,
+  },
+  camera: {
+    flex: 1,
+  },
+  cameraControls: {
+    padding: 20,
+    gap: 12,
+  },
 });
