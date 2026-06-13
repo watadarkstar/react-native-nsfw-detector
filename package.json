@@ -19,7 +19,10 @@
     "react-native",
     "expo",
     "react-native-nsfw-detector",
-    "ReactNativeNsfwDetector"
+    "ReactNativeNsfwDetector",
+    "CoreML",
+    "Swift",
+    "NSFW"
   ],
   "repository": "https://github.com/watadarkstar/react-native-nsfw-detector",
   "bugs": {
