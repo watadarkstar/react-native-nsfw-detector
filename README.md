@@ -3,7 +3,7 @@
 </p>
 
 <h3 align="center">
-  🔎 React Native NSFW Detector
+  React Native NSFW Detector
 </h3>
 
 <p align="center">
