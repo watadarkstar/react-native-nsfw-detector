@@ -35,6 +35,8 @@
 - Works with React Native and Expo native modules
 - Simple promise based API
 
+> ⚠️ Important: Running on the iOS Simulator results in significantly reduced accuracy. For reliable results, always test on a physical device.
+
 ## Installation
 
 Using npm
@@ -54,12 +56,23 @@ yarn add react-native-nsfw-detector
 ```jsx
 import { check } from 'react-native-nsfw-detector';
 
+/**
+ * IMPORTANT:
+ * Simulator runs will produce significantly reduced accuracy.
+ * Always test on a physical iOS device for reliable results.
+ */
+
 async function checkImage(imageUri: string) {
   const result = await check(imageUri);
 
   console.log(result);
 }
 ```
+
+See the full working example app here:
+
+- [/example](/example/) directory in this repo
+- Run it locally to test real CoreML inference on device
 
 ## License
 
