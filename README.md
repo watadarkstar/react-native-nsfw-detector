@@ -72,7 +72,7 @@ import { check } from 'react-native-nsfw-detector';
 async function checkImage(imageUri: string) {
   const confidence = await check(imageUri);
 
-  if confidence > 0.9 {
+  if(confidence > 0.9) {
     console.log("Not safe for work 🤦‍♂️🤦‍♀️")
   } else {
     console.log("Safe! ✅")
