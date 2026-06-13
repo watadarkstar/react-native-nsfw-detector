@@ -92,7 +92,7 @@ yarn run release
 
 <div align="center">
 
-**Ready to build a React Native CoreML model?**
+**Ready to build a React Native app or CoreML model?**
 
 ⭐ **Star this repo** • 💬 **[Contact Adrian to Build It](https://x.com/icookandcode)**
 
