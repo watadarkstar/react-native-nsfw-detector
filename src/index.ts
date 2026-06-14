@@ -2,7 +2,7 @@
 // and on native platforms to ReactNativeNsfwDetectorModule.ts
 import ReactNativeNsfwDetectorModule from './ReactNativeNsfwDetectorModule';
 
-export function check(imageUri: string): Promise<number> {
+export function checkNSFW(imageUri: string): Promise<number> {
   return ReactNativeNsfwDetectorModule.check(imageUri);
 }
 

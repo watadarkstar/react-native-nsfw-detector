@@ -12,7 +12,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { check } from 'react-native-nsfw-detector';
+import { checkNSFW } from 'react-native-nsfw-detector';
 
 export default function App() {
   const [facing, setFacing] = useState<CameraType>('back');
@@ -38,7 +38,7 @@ export default function App() {
     try {
       setImage(imageUri);
 
-      const res = await check(imageUri);
+      const res = await checkNSFW(imageUri);
       setConfidence(res);
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
