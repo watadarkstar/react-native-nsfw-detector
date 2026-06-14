@@ -56,5 +56,8 @@
     "expo": "*",
     "react": "*",
     "react-native": "*"
+  },
+  "dependencies": {
+    "expo-blur": "~56.0.3"
   }
 }

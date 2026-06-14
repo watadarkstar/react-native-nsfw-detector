@@ -13,6 +13,7 @@ import {
   View,
 } from 'react-native';
 import { checkNSFW } from 'react-native-nsfw-detector';
+import { NSFWImage } from './NSFWImage';
 
 export default function App() {
   const [facing, setFacing] = useState<CameraType>('back');
@@ -140,7 +141,13 @@ export default function App() {
         <ScrollView contentContainerStyle={styles.content}>
           <Text style={styles.header}>NSFW Module API Example</Text>
 
-          {image ? <Image source={image} style={styles.image} contentFit="cover" /> : null}
+          {image ? (
+            <NSFWImage revealOnPress source={image} style={styles.image} contentFit="cover" />
+          ) : null}
+
+          {confidence ? (
+            <Text style={styles.result}>NSFW: {(confidence * 100).toFixed(1)}%</Text>
+          ) : null}
 
           <Button title="Choose Image" onPress={pickImage} disabled={loading} />
 
@@ -149,10 +156,6 @@ export default function App() {
           <Button title="Take Photo" onPress={openCamera} disabled={loading} />
 
           {loading ? <ActivityIndicator style={styles.spinner} /> : null}
-
-          {confidence != null ? (
-            <Text style={styles.result}>NSFW: {(confidence * 100).toFixed(1)}%</Text>
-          ) : null}
 
           {error != null ? <Text style={styles.error}>{error}</Text> : null}
         </ScrollView>
@@ -165,19 +168,23 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     margin: 20,
+    textAlign: 'center',
   },
+  button: {},
   container: {
     flex: 1,
     backgroundColor: '#eee',
   },
   content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingBottom: 40,
   },
   image: {
-    width: '100%',
+    width: 200,
     height: 280,
     marginHorizontal: 20,
-    borderRadius: 10,
   },
   spinner: {
     marginTop: 16,
@@ -185,6 +192,8 @@ const styles = StyleSheet.create({
   result: {
     margin: 20,
     fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   error: {
     margin: 20,
